@@ -1,0 +1,12 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: brag_api_development
+
+test:
+  <<: *default
+  database: brag_api_test
