@@ -7,12 +7,10 @@ class User < ActiveRecord::Base
   validates :email,      presence: true, uniqueness: { case_sensitive: false }
   validates :password,   presence: true, length: { minimum: 8 }
 
-  private
-
-    def generate_authentication_token!
-      loop do
-        self.authentication_token = SecureRandom.base64(64)
-        break unless User.find_by(authentication_token: authentication_token)
-      end
+  def generate_authentication_token!
+    loop do
+      self.authentication_token = SecureRandom.base64(64)
+      break unless User.find_by(authentication_token: authentication_token)
     end
+  end
 end
