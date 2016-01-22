@@ -4,9 +4,10 @@ class Api::V1::AuthenticationsController < Api::V1::BaseController
     if user.authenticate params[:password]
       render json: {
         authentication_token: user.authentication_token,
-        user: Api::V1::UserSerializer.new(user).to_json
+        user: Api::V1::UserSerializer.new(user)
       }
+    else
+      render json: { error: 'Unauthorized' }, status: 401
     end
-    return api_error status: 403, errors: 'Unauthenticated'
   end
 end

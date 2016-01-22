@@ -7,6 +7,6 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def not_found
-    return api_error status: 404, errors: 'Not found'
+    render json: { error: 'Not found' }, status: 404
   end
 end
