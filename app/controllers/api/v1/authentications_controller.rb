@@ -1,4 +1,6 @@
 class Api::V1::AuthenticationsController < Api::V1::BaseController
+  skip_before_action :authenticate!, only: [:create]
+
   def create
     user = User.find_by! email: params[:email]
     if user.authenticate params[:password]
