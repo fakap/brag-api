@@ -6,7 +6,7 @@ class RegisterUserService
       username:              user_params[:username],
       email:                 user_params[:email],
       password:              user_params[:password],
-      password_confirmation: user_params[:password_confirmation]
+      password_confirmation: user_params[:password_confirmation] || ''
     )
   end
 
