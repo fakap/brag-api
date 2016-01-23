@@ -1,4 +1,5 @@
 class RegisterUserService
+
   def initialize user_params
     @user = User.new(
       first_name:            user_params[:first_name],
@@ -13,5 +14,6 @@ class RegisterUserService
   def call
     @user.generate_authentication_token!
     @user.save
+    @user
   end
 end
