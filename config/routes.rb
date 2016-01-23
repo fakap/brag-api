@@ -10,6 +10,13 @@ Rails.application.routes.draw do
 
       # SESSIONS
       post   '/sign_in'  => 'authentications#create'
+
+      # BRAGS
+      get    '/user/:id/brags'  => 'brags#index'
+      post   '/user/:id/brags'  => 'brags#create'
+      get    '/brag/:id'        => 'brags#show'
+      put    '/brag/:id'        => 'brags#update'
+      delete '/brag/:id'        => 'brags#destroy'
     end
   end
 end
