@@ -24,6 +24,13 @@ class Api::V1::BragsController < Api::V1::BaseController
   end
 
   def create
+    brag_creation_service = CreateBragService.new(safe_params)
+    brag = brag_creation_service.call
+    if brag.persisted?
+      render json: Api::V1::BragSerializer.new(brag), status: 201
+    else
+      render json: { errors: brag.errors.messages }, status: 400
+    end
   end
 
   def update
