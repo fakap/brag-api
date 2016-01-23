@@ -18,7 +18,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   def create
     registration_service = RegisterUserService.new(safe_params)
     user = registration_service.call
-    if user.valid?
+    if user.persisted?
       render json: Api::V1::UserSerializer.new(user), status: 201
     else
       render json: { errors: user.errors.messages }, status: 400
@@ -31,7 +31,7 @@ class Api::V1::UsersController < Api::V1::BaseController
       update_service = UpdateUserService.new(user, safe_params)
       user = update_service.call
       if user.valid?
-        render json: Api::V1::UserSerializer.new(user), status: 200
+        render json: Api::V1::UserSerializer.new(user)
       else
         render json: { errors: user.errors.messages }, status: 400
       end
