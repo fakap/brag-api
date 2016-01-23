@@ -26,6 +26,18 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def update
+    user = User.find safe_params[:id]
+    if user == @current_user
+      update_service = UpdateUserService.new(user, safe_params)
+      user = update_service.call
+      if user.valid?
+        render json: Api::V1::UserSerializer.new(user), status: 200
+      else
+        render json: { errors: user.errors.messages }, status: 400
+      end
+    else
+      render json: { errors: 'Unauthorized' }, status: 403
+    end
   end
 
   def destroy
