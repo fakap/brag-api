@@ -16,6 +16,13 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def create
+    registration_service = RegisterUserService.new(safe_params)
+    user = registration_service.call
+    if user.valid?
+      render json: Api::V1::UserSerializer.new(user), status: 201
+    else
+      render json: { errors: user.errors.messages }, status: 400
+    end
   end
 
   def update
