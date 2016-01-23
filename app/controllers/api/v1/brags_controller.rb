@@ -49,5 +49,13 @@ class Api::V1::BragsController < Api::V1::BaseController
   end
 
   def destroy
+    brag = Brag.find(params[:id])
+    if @current_user == brag.user
+      brag_destruction_service = DeleteBragService.new(brag)
+      brag_destruction_service.call
+      render json: {}, status: 200
+    else
+      render json: { errors: 'Unauthorized' }, status: 403
+    end
   end
 end
