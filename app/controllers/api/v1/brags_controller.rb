@@ -15,6 +15,12 @@ class Api::V1::BragsController < Api::V1::BaseController
   end
 
   def show
+    brag = Brag.find(params[:id])
+    if @current_user == brag.user
+      render json: Api::V1::BragSerializer.new(brag)
+    else
+      render json: { errors: 'Unauthorized' }, status: 403
+    end
   end
 
   def create
