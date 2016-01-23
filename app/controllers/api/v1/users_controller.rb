@@ -41,6 +41,14 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def destroy
+    user = User.find safe_params[:id]
+    if user == @current_user
+      delete_service = DeleteUserService.new(user)
+      delete_service.call
+      render json: {}, status: 200
+    else
+      render json: { errors: 'Unauthorized' }, status: 403
+    end
   end
 
   private
