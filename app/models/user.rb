@@ -8,11 +8,12 @@ class User < ActiveRecord::Base
     presence: true
   }
   validates :username, {
-    presence: true
+    presence: true,
+    uniqueness: { case_sensitive: false },
   }
   validates :email, {
     presence: true,
-    uniqueness: { case_sensitive: false }
+    uniqueness: { case_sensitive: false },
   }
   validates :password, {
     length: { minimum: 8 },
