@@ -1,4 +1,5 @@
 class Api::V1::BragsController < Api::V1::BaseController
+  before_action :find_brag, only: [:show, :update, :destroy]
 
   def index
     user = User.find(params[:id])
@@ -15,9 +16,8 @@ class Api::V1::BragsController < Api::V1::BaseController
   end
 
   def show
-    brag = Brag.find(params[:id])
-    if @current_user == brag.user
-      render json: Api::V1::BragSerializer.new(brag)
+    if @current_user == @brag.user
+      render json: Api::V1::BragSerializer.new(@brag)
     else
       render json: { errors: 'Unauthorized' }, status: 403
     end
@@ -34,14 +34,13 @@ class Api::V1::BragsController < Api::V1::BaseController
   end
 
   def update
-    brag = Brag.find(params[:id])
-    if @current_user == brag.user
+    if @current_user == @brag.user
       brag_update_service = UpdateBragService.new
-      brag = brag_update_service.call
-      if brag.valid?
-        render json: Api::V1::BragSerializer.new(brag)
+      @brag = brag_update_service.call
+      if @brag.valid?
+        render json: Api::V1::BragSerializer.new(@brag)
       else
-        render json: { errors: brag.errors.messages }, status: 400
+        render json: { errors: @brag.errors.messages }, status: 400
       end
     else
       render json: { errors: 'Unauthorized' }, status: 403
@@ -49,13 +48,18 @@ class Api::V1::BragsController < Api::V1::BaseController
   end
 
   def destroy
-    brag = Brag.find(params[:id])
-    if @current_user == brag.user
-      brag_destruction_service = DeleteBragService.new(brag)
+    if @current_user == @brag.user
+      brag_destruction_service = DeleteBragService.new(@brag)
       brag_destruction_service.call
       render json: {}, status: 200
     else
       render json: { errors: 'Unauthorized' }, status: 403
     end
   end
+
+  private
+
+    def find_brag
+      @brag = Brag.find(params[:id])
+    end
 end
