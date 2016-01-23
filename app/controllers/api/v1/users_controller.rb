@@ -15,4 +15,10 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def destroy
   end
+
+  private
+
+    def safe_params
+      params.permit(:id, :first_name, :last_name, :username, :email, :password, :password_confirmation)
+    end
 end
