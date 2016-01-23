@@ -16,6 +16,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Use ActiveModel::Serializers
 gem 'active_model_serializers'
 
+# Use Carrierwave for image processing
+gem 'carrierwave'
+
 # Use Puma as the app server
 gem 'puma'
 
