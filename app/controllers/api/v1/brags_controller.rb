@@ -1,12 +1,11 @@
 class Api::V1::BragsController < Api::V1::BaseController
   before_action :find_brag, only: [:show, :update, :destroy]
+  before_action :find_brags, only: [:index]
 
   def index
-    user = User.find(params[:id])
-    if @current_user == user
-      brags = user.brags
+    if @current_user == @brags_owner
       render json: ActiveModel::ArraySerializer.new(
-        brags,
+        @brags,
         each_serializer: Api::V1::BragSerializer,
         root: :brags,
       )
@@ -61,5 +60,10 @@ class Api::V1::BragsController < Api::V1::BaseController
 
     def find_brag
       @brag = Brag.find(params[:id])
+    end
+
+    def find_brags
+      @brags_owner = User.find(params[:id])
+      @brags = user.brags
     end
 end
