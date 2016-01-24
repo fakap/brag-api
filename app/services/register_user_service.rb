@@ -1,13 +1,13 @@
 class RegisterUserService
 
-  def initialize user_params
+  def initialize user_attributes
     @user = User.new(
-      first_name:            user_params[:first_name],
-      last_name:             user_params[:last_name],
-      username:              user_params[:username],
-      email:                 user_params[:email],
-      password:              user_params[:password],
-      password_confirmation: user_params[:password_confirmation] || ''
+      first_name:            user_attributes[:first_name],
+      last_name:             user_attributes[:last_name],
+      username:              user_attributes[:username],
+      email:                 user_attributes[:email],
+      password:              user_attributes[:password],
+      password_confirmation: user_attributes[:password_confirmation] || ''
     )
   end
 
