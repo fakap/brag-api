@@ -34,7 +34,7 @@ class Api::V1::BragsController < Api::V1::BaseController
 
   def update
     if @current_user == @brag.user
-      brag_update_service = UpdateBragService.new
+      brag_update_service = UpdateBragService.new(@brag, safe_params)
       @brag = brag_update_service.call
       if @brag.valid?
         render json: Api::V1::BragSerializer.new(@brag)
@@ -57,6 +57,10 @@ class Api::V1::BragsController < Api::V1::BaseController
   end
 
   private
+
+    def safe_params
+      params.permit(:id, :title, :story, :photo)
+    end
 
     def find_brag
       @brag = Brag.find(params[:id])
