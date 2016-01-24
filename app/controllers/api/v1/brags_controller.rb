@@ -68,6 +68,6 @@ class Api::V1::BragsController < Api::V1::BaseController
 
     def find_brags
       @brags_owner = User.find(params[:id])
-      @brags = user.brags
+      @brags = @brags_owner.brags
     end
 end
