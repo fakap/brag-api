@@ -45,7 +45,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     if user == @current_user
       delete_service = DeleteUserService.new(user)
       delete_service.call
-      render json: {}, status: 200
+      render json: {}
     else
       render json: { errors: 'Unauthorized' }, status: 403
     end
