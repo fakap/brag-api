@@ -3,4 +3,5 @@ class Brag < ActiveRecord::Base
   mount_uploader :photo, BragUploader
 
   validates :title, presence: true
+  validates :photo, presence: true
 end
