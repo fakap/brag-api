@@ -11,7 +11,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
   end
 
   def create
-    comment = @brag.comments.build(user_id: current_user.id, text: params[:text])
+    comment = @brag.comments.build(user_id: @current_user.id, text: params[:text])
     if comment.save
       render json: Api::V1::CommentSerializer.new(comment), status: 201
     else
@@ -20,7 +20,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
   end
 
   def destroy
-    if current_user == @comment.user
+    if @current_user == @comment.user
       @comment.destroy
       render json: {}
     else
