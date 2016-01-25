@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :brags, dependent: :destroy
   has_many :wows, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :first_name, {
     presence: true
