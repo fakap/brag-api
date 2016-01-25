@@ -16,15 +16,11 @@ class Api::V1::WowsController < Api::V1::BaseController
       render json: {}
     else
       wow = @brag.wows.create(user_id: current_user.id)
-      render json: { Api::V1::WowSerializer.new(wow) }, status: 201
+      render json: Api::V1::WowSerializer.new(wow), status: 201
     end
   end
 
   private
-
-    def safe_params
-      params.permit(:id)
-    end
 
     def find_brag
       @brag = Brag.find(params[:id])
