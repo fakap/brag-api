@@ -3,7 +3,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
   before_action :find_comment, only: [:destroy]
 
   def index
-    render json: ActiveModel::ArraySerializer(
+    render json: ActiveModel::ArraySerializer.new(
       @brag.comments,
       each_serializer: Api::V1::CommentSerializer,
       root: false
