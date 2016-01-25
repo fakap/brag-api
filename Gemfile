@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
@@ -24,6 +25,11 @@ gem 'puma'
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
+
+group :production do
+  # Enable deployment to Heroku
+  gem 'rails_12factor'
+end
 
 group :development, :test do
   # Call 'binding.pry' anywhere in the code to stop execution and get a debugger console
