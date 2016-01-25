@@ -17,6 +17,10 @@ Rails.application.routes.draw do
       get    '/brag/:id'        => 'brags#show'
       put    '/brag/:id'        => 'brags#update'
       delete '/brag/:id'        => 'brags#destroy'
+
+      # WOWS
+      get    '/brag/:id/wows'   => 'wows#index'
+      put    '/brag/:id/wow'    => 'wows#update'
     end
   end
 end
