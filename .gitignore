@@ -20,11 +20,5 @@
 .ruby-version
 .ruby-gemset
 
-# Ignore the database config file
-config/database.yml
-
-# Ignore the secrets file
-config/secrets.yml
-
 # Ignore uploaded files
 public/brags/*
