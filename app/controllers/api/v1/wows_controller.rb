@@ -2,7 +2,7 @@ class Api::V1::WowsController < Api::V1::BaseController
   before_action :find_brag
 
   def index
-    render json: AciveMode::ArraySerializer(
+    render json: ActiveMode::ArraySerializer(
       @brag.wows,
       each_serializer: Api::V1::WowSerializer,
       root: false
@@ -10,12 +10,12 @@ class Api::V1::WowsController < Api::V1::BaseController
   end
 
   def update
-    wow = @brag.wows.find_by(user_id: current_user.id)
+    wow = @brag.wows.find_by(user_id: @current_user.id)
     if wow
       wow.destroy
       render json: {}
     else
-      wow = @brag.wows.create(user_id: current_user.id)
+      wow = @brag.wows.create(user_id: @current_user.id)
       render json: Api::V1::WowSerializer.new(wow), status: 201
     end
   end
