@@ -3,23 +3,15 @@ class Api::V1::BragsController < Api::V1::BaseController
   before_action :find_brags, only: [:index]
 
   def index
-    if @current_user == @brags_owner
-      render json: ActiveModel::ArraySerializer.new(
-        @brags,
-        each_serializer: Api::V1::BragSerializer,
-        root: :brags,
-      )
-    else
-      render json: { errors: 'Unauthorized' }, status: 403
-    end
+    render json: ActiveModel::ArraySerializer.new(
+      @brags,
+      each_serializer: Api::V1::BragSerializer,
+      root: :brags,
+    )
   end
 
   def show
-    if @current_user == @brag.user
-      render json: Api::V1::BragSerializer.new(@brag)
-    else
-      render json: { errors: 'Unauthorized' }, status: 403
-    end
+    render json: Api::V1::BragSerializer.new(@brag)
   end
 
   def create
