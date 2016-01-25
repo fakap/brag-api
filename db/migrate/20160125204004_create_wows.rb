@@ -4,7 +4,6 @@ class CreateWows < ActiveRecord::Migration
       t.belongs_to :user
       t.belongs_to :brag
       
-      
       t.timestamps null: false
     end
   end
