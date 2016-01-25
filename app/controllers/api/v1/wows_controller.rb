@@ -2,7 +2,7 @@ class Api::V1::WowsController < Api::V1::BaseController
   before_action :find_brag
 
   def index
-    render json: ActiveModel::ArraySerializer(
+    render json: ActiveModel::ArraySerializer.new(
       @brag.wows,
       each_serializer: Api::V1::WowSerializer,
       root: false
